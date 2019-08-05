@@ -430,6 +430,12 @@ func (c *client) reconnect() {
 	go outgoing(c)
 	go incoming(c)
 
+	if c.options.CleanSession == false {
+		c.resume(c.options.ResumeSubs)
+	} else {
+		c.persist.Reset()
+	}
+
 	c.resume(false)
 }
 
